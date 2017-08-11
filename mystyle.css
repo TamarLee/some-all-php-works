@@ -1,0 +1,11 @@
+div.main {
+	border: outset 5px lavender;
+	padding: 5px;
+	display: inline-block;
+	background-color: aliceblue;
+	}
+div.notmain {
+	display: inline-block;
+	}
+input {
+	display: block;
