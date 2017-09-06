@@ -1,0 +1,1 @@
+Welcome to our site <?=$_GET["name"]?>! <a href="/mysite">return to site</a>

@@ -1,4 +1,44 @@
-<?php include "data.php"; ?>
+<?php
+$servername = "localhost";
+$username = "root";
+$password = "";
+$location = "database";
+
+// Create connection
+$conn = mysqli_connect($servername, $username, $password, $location);
+mysqli_set_charset($conn, "utf8");
+// Check connection
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+
+function data(){
+  global $conn;
+  $query = "SELECT * FROM `articles`";
+  $data = mysqli_query($conn, $query);  
+  while ($rows = mysqli_fetch_assoc($data)) {
+    $arr[]= $rows;
+  }
+  return $arr;
+}
+
+function dataa(){
+  global $conn;
+  $query = "SELECT * FROM `menu`";
+  $data = mysqli_query($conn, $query);  
+  while ($rows = mysqli_fetch_assoc($data)) {
+    $arr[]= $rows;
+  }
+  return $arr;
+}
+?>
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,6 +61,11 @@
 
   <body>
 
+  <?php 
+  $arr = data();
+  $array = dataa(); 
+  ?>
+
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
@@ -30,7 +75,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
-            <?php foreach ($menu as $value): ?>
+            <?php foreach ($array as $value): ?>
               <li class="nav-item active">
                 <a class="nav-link" href="#"><?=$value["title"];?>
                   <span class="sr-only">(current)</span>
@@ -54,7 +99,7 @@
 
 
            <!-- Blog Post -->
-          <?php foreach($articles as $key => $value):?>
+          <?php foreach($arr as $key => $value):?>
           <div class="card mb-4">
             <img class="card-img-top" src="<?=$value['img'];?>" >
             <div class="card-body">
@@ -63,7 +108,7 @@
               <a href="index2.php ?id=<?=$key;?>" class="btn btn-primary">მეტი &rarr;</a>
             </div>
             <div class="card-footer text-muted">
-              30 აგვისტო 2017 by
+              <?=$value["date"];?> by
               <a href="#">თამარ ლი</a>
             </div>
           </div>
